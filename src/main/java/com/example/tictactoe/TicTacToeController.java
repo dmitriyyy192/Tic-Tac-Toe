@@ -97,12 +97,7 @@ public class TicTacToeController implements Initializable {
         cntOfMoves = 0;
         emptyFieldCount = 9;
         thereIsAWinner = false;
-    }
-
-    private void changeLabel() {
-        if(!thereIsAWinner) {
-            turnLabel.setText("Ход " + getSymbol());
-        }
+        turnLabel.setText("");
     }
 
     @FXML
@@ -116,7 +111,6 @@ public class TicTacToeController implements Initializable {
         }
         if (botTurnIsFirst) {
             chooseBotStep();
-            changeLabel();
         }
     }
 
@@ -129,10 +123,10 @@ public class TicTacToeController implements Initializable {
         cntOfMoves = 0;
         emptyFieldCount = 9;
         thereIsAWinner = false;
+        turnLabel.setText("");
 
         if (botTurnIsFirst) {
             chooseBotStep();
-            changeLabel();
         }
     }
 
@@ -150,57 +144,6 @@ public class TicTacToeController implements Initializable {
         botTurnIsFirst = false;
     }
 
-    //------------------------------
-
-    private boolean isEven(int num) {
-        return num % 2 == 0 ? true : false;
-    }
-
-    private void userStep(int fNum) {
-        fields[fNum].setText(userSymbol);
-        fields[fNum].setDisable(true);
-        check_win();
-        if (!thereIsAWinner) {
-            cntOfMoves++;
-            emptyFieldCount--;
-        }
-    }
-
-    public void checkForMove(int fieldNum) {
-        if (botTurnIsFirst) {
-            if (isEven(cntOfMoves)) {
-                chooseBotStep();
-                userStep(fieldNum);
-                changeLabel();
-            } else {
-                userStep(fieldNum);
-                chooseBotStep();
-                changeLabel();
-            }
-        } else {
-            if (isEven(cntOfMoves)) {
-                userStep(fieldNum);
-                chooseBotStep();
-                changeLabel();
-            } else {
-                chooseBotStep();
-                changeLabel();
-            }
-        }
-        fields[fieldNum].setDisable(true);
-    }
-
-    //--------------------------------
-
-    private void viewWinner(String winner) {
-        if (thereIsAWinner) {
-            System.out.println(winner);
-            turnLabel.setText("Winner is " + winner);
-            for (var el : fields) {
-                el.setDisable(true);
-            }
-        }
-    }
 
     @FXML
     void field1_click(MouseEvent event) {
@@ -247,111 +190,164 @@ public class TicTacToeController implements Initializable {
         checkForMove(8);
     }
 
-    private void chooseBotStep() {
-        if (field1.getText().equals(botSymbol) && field4.getText().equals(botSymbol) && field7.getText().equals("")) { //1 столбец
-            botStep(6, botSymbol);
-        } else if (field1.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field4.getText().equals("")) {
-            botStep(3, botSymbol);
-        } else if (field4.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field2.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field8.getText().equals("")) { //2 столбец
-            botStep(7, botSymbol);
-        } else if (field2.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field2.getText().equals("")) {
-            botStep(1, botSymbol);
-        } else if (field3.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field9.getText().equals("")) { //3 столбец
-            botStep(8, botSymbol);
-        } else if (field3.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field6.getText().equals("")) {
-            botStep(5, botSymbol);
-        } else if (field6.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field3.getText().equals("")) {
-            botStep(2, botSymbol);
-        } else if (field1.getText().equals(botSymbol) && field2.getText().equals(botSymbol) && field3.getText().equals("")) { //1 строка
-            botStep(2, botSymbol);
-        } else if (field1.getText().equals(botSymbol) && field3.getText().equals(botSymbol) && field2.getText().equals("")) {
-            botStep(1, botSymbol);
-        } else if (field2.getText().equals(botSymbol) && field3.getText().equals(botSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field4.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field6.getText().equals("")) { //2 строка
-            botStep(5, botSymbol);
-        } else if (field4.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field4.getText().equals("")) {
-            botStep(3, botSymbol);
-        } else if (field7.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field9.getText().equals("")) { //3 строка
-            botStep(8, botSymbol);
-        } else if (field7.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field8.getText().equals("")) {
-            botStep(7, botSymbol);
-        } else if (field8.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field7.getText().equals("")) {
-            botStep(6, botSymbol);
-        } else if (field1.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field9.getText().equals("")) { //левая диагональ
-            botStep(8, botSymbol);
-        } else if (field1.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field3.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field7.getText().equals("")) { //правая диагональ
-            botStep(6, botSymbol);
-        } else if (field3.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field3.getText().equals("")) {
-            botStep(2, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field4.getText().equals(userSymbol) && field7.getText().equals("")) { //1 столбец
-            botStep(6, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field4.getText().equals("")) {
-            botStep(3, botSymbol);
-        } else if (field4.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field2.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field8.getText().equals("")) { //2 столбец
-            botStep(7, botSymbol);
-        } else if (field2.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field2.getText().equals("")) {
-            botStep(1, botSymbol);
-        } else if (field3.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field9.getText().equals("")) { //3 столбец
-            botStep(8, botSymbol);
-        } else if (field3.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field6.getText().equals("")) {
-            botStep(5, botSymbol);
-        } else if (field6.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field3.getText().equals("")) {
-            botStep(2, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field2.getText().equals(userSymbol) && field3.getText().equals("")) { //1 строка
-            botStep(2, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field3.getText().equals(userSymbol) && field2.getText().equals("")) {
-            botStep(1, botSymbol);
-        } else if (field2.getText().equals(userSymbol) && field3.getText().equals(userSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field4.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field6.getText().equals("")) { //2 строка
-            botStep(5, botSymbol);
-        } else if (field4.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field4.getText().equals("")) {
-            botStep(3, botSymbol);
-        } else if (field7.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field9.getText().equals("")) { //3 строка
-            botStep(8, botSymbol);
-        } else if (field7.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field8.getText().equals("")) {
-            botStep(7, botSymbol);
-        } else if (field8.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field7.getText().equals("")) {
-            botStep(6, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field9.getText().equals("")) { //левая диагональ
-            botStep(8, botSymbol);
-        } else if (field1.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field1.getText().equals("")) {
-            botStep(0, botSymbol);
-        } else if (field3.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field7.getText().equals("")) { //правая диагональ
-            botStep(6, botSymbol);
-        } else if (field3.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field5.getText().equals("")) {
-            botStep(4, botSymbol);
-        } else if (field5.getText().equals(userSymbol) && field7.getText().equals(botSymbol) && field3.getText().equals("")) {
-            botStep(2, botSymbol);
-        } else {
-            randomBotStep();
-        }
-        emptyFieldCount--;
+    private boolean isEven(int num) {
+        return num % 2 == 0 ? true : false;
+    }
 
-        check_win();
-        if (!thereIsAWinner) {
-            cntOfMoves++;
+
+
+    private void viewWinner(String winner) {
+        if (thereIsAWinner) {
+            turnLabel.setText("Winner is " + winner);
+            for (var el : fields) {
+                el.setDisable(true);
+            }
+        }
+    }
+
+    public void checkForMove(int fieldNum) {
+        if (botTurnIsFirst) {
+            if (isEven(cntOfMoves)) {
+                chooseBotStep();
+                userStep(fieldNum);
+            } else {
+                userStep(fieldNum);
+                chooseBotStep();
+            }
+        } else {
+            if (isEven(cntOfMoves)) {
+                userStep(fieldNum);
+                chooseBotStep();
+            } else {
+                chooseBotStep();
+            }
+        }
+        fields[fieldNum].setDisable(true);
+    }
+
+    private void userStep(int fNum) {
+        if(emptyFieldCount != 0) {
+            fields[fNum].setText(userSymbol);
+            fields[fNum].setDisable(true);
+            check_win();
+            if (!thereIsAWinner) {
+                cntOfMoves++;
+                emptyFieldCount--;
+            }
+        } else {
+            check_win();
+        }
+    }
+
+    private void chooseBotStep() {
+        if(emptyFieldCount != 0) {
+            if (field1.getText().equals(botSymbol) && field4.getText().equals(botSymbol) && field7.getText().equals("")) { //1 столбец
+                botStep(6, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field4.getText().equals("")) {
+                botStep(3, botSymbol);
+            } else if (field4.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field2.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field8.getText().equals("")) { //2 столбец
+                botStep(7, botSymbol);
+            } else if (field2.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field2.getText().equals("")) {
+                botStep(1, botSymbol);
+            } else if (field3.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field9.getText().equals("")) { //3 столбец
+                botStep(8, botSymbol);
+            } else if (field3.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field6.getText().equals("")) {
+                botStep(5, botSymbol);
+            } else if (field6.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field3.getText().equals("")) {
+                botStep(2, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field2.getText().equals(botSymbol) && field3.getText().equals("")) { //1 строка
+                botStep(2, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field3.getText().equals(botSymbol) && field2.getText().equals("")) {
+                botStep(1, botSymbol);
+            } else if (field2.getText().equals(botSymbol) && field3.getText().equals(botSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field4.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field6.getText().equals("")) { //2 строка
+                botStep(5, botSymbol);
+            } else if (field4.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(botSymbol) && field6.getText().equals(botSymbol) && field4.getText().equals("")) {
+                botStep(3, botSymbol);
+            } else if (field7.getText().equals(botSymbol) && field8.getText().equals(botSymbol) && field9.getText().equals("")) { //3 строка
+                botStep(8, botSymbol);
+            } else if (field7.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field8.getText().equals("")) {
+                botStep(7, botSymbol);
+            } else if (field8.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field7.getText().equals("")) {
+                botStep(6, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field9.getText().equals("")) { //левая диагональ
+                botStep(8, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(botSymbol) && field9.getText().equals(botSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field3.getText().equals(botSymbol) && field5.getText().equals(botSymbol) && field7.getText().equals("")) { //правая диагональ
+                botStep(6, botSymbol);
+            } else if (field3.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field3.getText().equals("")) {
+                botStep(2, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field4.getText().equals(userSymbol) && field7.getText().equals("")) { //1 столбец
+                botStep(6, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field4.getText().equals("")) {
+                botStep(3, botSymbol);
+            } else if (field4.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field2.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field8.getText().equals("")) { //2 столбец
+                botStep(7, botSymbol);
+            } else if (field2.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field2.getText().equals("")) {
+                botStep(1, botSymbol);
+            } else if (field3.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field9.getText().equals("")) { //3 столбец
+                botStep(8, botSymbol);
+            } else if (field3.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field6.getText().equals("")) {
+                botStep(5, botSymbol);
+            } else if (field6.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field3.getText().equals("")) {
+                botStep(2, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field2.getText().equals(userSymbol) && field3.getText().equals("")) { //1 строка
+                botStep(2, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field3.getText().equals(userSymbol) && field2.getText().equals("")) {
+                botStep(1, botSymbol);
+            } else if (field2.getText().equals(userSymbol) && field3.getText().equals(userSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field4.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field6.getText().equals("")) { //2 строка
+                botStep(5, botSymbol);
+            } else if (field4.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(userSymbol) && field6.getText().equals(userSymbol) && field4.getText().equals("")) {
+                botStep(3, botSymbol);
+            } else if (field7.getText().equals(userSymbol) && field8.getText().equals(userSymbol) && field9.getText().equals("")) { //3 строка
+                botStep(8, botSymbol);
+            } else if (field7.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field8.getText().equals("")) {
+                botStep(7, botSymbol);
+            } else if (field8.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field7.getText().equals("")) {
+                botStep(6, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field9.getText().equals("")) { //левая диагональ
+                botStep(8, botSymbol);
+            } else if (field1.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(userSymbol) && field9.getText().equals(userSymbol) && field1.getText().equals("")) {
+                botStep(0, botSymbol);
+            } else if (field3.getText().equals(userSymbol) && field5.getText().equals(userSymbol) && field7.getText().equals("")) { //правая диагональ
+                botStep(6, botSymbol);
+            } else if (field3.getText().equals(userSymbol) && field7.getText().equals(userSymbol) && field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field5.getText().equals(userSymbol) && field7.getText().equals(botSymbol) && field3.getText().equals("")) {
+                botStep(2, botSymbol);
+            } else {
+                randomBotStep();
+            }
+            emptyFieldCount--;
+
+            check_win();
+            if (!thereIsAWinner) {
+                cntOfMoves++;
+            }
+        } else {
+            check_win();
         }
     }
 
@@ -360,25 +356,13 @@ public class TicTacToeController implements Initializable {
         fields[num].setDisable(true);
     }
 
-    private int getRandom() {
-        return (int) (Math.random() * 9);
-    }
-
     private void randomBotStep() {
         int num;
         do {
-            num = getRandom();
+            num = (int) (Math.random() * 9);
         } while (fields[num].getText() != "");
         fields[num].setText(botSymbol);
         fields[num].setDisable(true);
-    }
-
-    private String getSymbol() {
-        if (botTurnIsFirst) {
-            return isEven(cntOfMoves) ? userSymbol : botSymbol;
-        } else {
-            return isEven(cntOfMoves) ? botSymbol : userSymbol;
-        }
     }
 
     private void check_win() {

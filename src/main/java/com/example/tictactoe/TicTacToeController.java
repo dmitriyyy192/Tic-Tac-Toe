@@ -18,6 +18,8 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Button btn_reset;
     @FXML
+    private Button btn_play_withFriend;
+    @FXML
     private Button field1;
     @FXML
     private Button field2;
@@ -52,6 +54,8 @@ public class TicTacToeController implements Initializable {
     private Label turnLabel;
 
     private boolean botTurnIsFirst = true; //переменная, отвечающая за то, кто первый ходит
+    private boolean thereIsAWinner = false; //переменная, отвечающая за то, есть ли победитель
+    private boolean chooseBtnPlay;
 
     private int cntOfMoves = 0; //количество ходов
     private int emptyFieldCount = 9; //количество пустых полей
@@ -61,7 +65,6 @@ public class TicTacToeController implements Initializable {
     private String botSymbol = "O";
     private String userSymbol = "X";
 
-    private boolean thereIsAWinner = false; //переменная, отвечающая за то, есть ли победитель
 
     @FXML
     void btn_exit_click(MouseEvent event) {
@@ -100,6 +103,18 @@ public class TicTacToeController implements Initializable {
     }
 
     @FXML
+    void btn_play_withFriend_click(MouseEvent event) {
+        tab_game.setDisable(false);
+        tab_menu.setDisable(true);
+        tabPane.getSelectionModel().select(1);
+        for (var f : fields) {
+            f.setText("");
+            f.setDisable(false);
+        }
+        chooseBtnPlay = true;
+    }
+
+    @FXML
     void btn_reset_click(MouseEvent event) {
         for (var f : fields) {
             f.setText("");
@@ -110,8 +125,10 @@ public class TicTacToeController implements Initializable {
         thereIsAWinner = false;
         turnLabel.setText("");
 
-        if (botTurnIsFirst) {
-            chooseBotStep();
+        if(!chooseBtnPlay) {
+            if (botTurnIsFirst) {
+                chooseBotStep();
+            }
         }
     }
 
@@ -190,38 +207,46 @@ public class TicTacToeController implements Initializable {
     }
 
     public void checkForMove(int fieldNum) {
-        if (botTurnIsFirst) {
-            if (isEven(cntOfMoves)) {
-                chooseBotStep();
-                userStep(fieldNum);
+        if(chooseBtnPlay) {
+            if(isEven(cntOfMoves)) {
+                userStep(fieldNum,userSymbol);
             } else {
-                userStep(fieldNum);
-                if (!thereIsAWinner) {
-                    chooseBotStep();
-                }
+                userStep(fieldNum,botSymbol);
             }
         } else {
-            if (isEven(cntOfMoves)) {
-                userStep(fieldNum);
-                if (!thereIsAWinner) {
+            if (botTurnIsFirst) {
+                if (isEven(cntOfMoves)) {
                     chooseBotStep();
+                    userStep(fieldNum,userSymbol);
+                } else {
+                    userStep(fieldNum,userSymbol);
+                    if (!thereIsAWinner) {
+                        chooseBotStep();
+                    }
                 }
             } else {
-                chooseBotStep();
+                if (isEven(cntOfMoves)) {
+                    userStep(fieldNum,userSymbol);
+                    if (!thereIsAWinner) {
+                        chooseBotStep();
+                    }
+                } else {
+                    chooseBotStep();
+                }
             }
+            fields[fieldNum].setDisable(true);
         }
-        fields[fieldNum].setDisable(true);
     }
 
-    private void userStep(int fNum) {
+    private void userStep(int fNum, String symbol) {
         if (emptyFieldCount != 0) {
-            fields[fNum].setText(userSymbol);
+            fields[fNum].setText(symbol);
             fields[fNum].setDisable(true);
-            check_win();
             if (!thereIsAWinner) {
                 cntOfMoves++;
                 emptyFieldCount--;
             }
+            check_win();
         } else {
             check_win();
         }

@@ -9,81 +9,89 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="359.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.TicTacToeController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="359.0" style="-fx-background-color: white; -fx-background-radius: 20;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.TicTacToeController">
   <tabs>
     <Tab fx:id="tab_menu" text="Меню">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="412.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="412.0" style="-fx-background-color: black;">
                <children>
-                  <Button fx:id="btn_play" layoutX="130.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#btn_play_click" prefHeight="30.0" prefWidth="100.0" text="Играть">
+                  <Button fx:id="btn_play" layoutX="117.0" layoutY="271.0" mnemonicParsing="false" onMouseClicked="#btn_play_click" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Играть с ботом">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_exit" layoutX="130.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#btn_exit_click" prefHeight="30.0" prefWidth="100.0" text="Выход">
+                  <Button fx:id="btn_exit" layoutX="117.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#btn_exit_click" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Выход">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label layoutX="97.0" layoutY="74.0" text="Крестики-Нолики">
+                  <Label layoutX="97.0" layoutY="74.0" text="Крестики-Нолики" textFill="#ac9d9d">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="139.0" layoutY="171.0" text="Первым ходит" />
-                  <Label layoutX="131.0" layoutY="209.0" text="Бот" />
-                  <Label layoutX="210.0" layoutY="208.0" text="Вы" />
-                  <CheckBox fx:id="check_bot" layoutX="133.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#check_bot_click" />
-                  <CheckBox fx:id="check_player" layoutX="207.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#check_player_click" />
-                  <Separator layoutX="-34.0" layoutY="111.0" prefHeight="12.0" prefWidth="393.0" />
-                  <Separator layoutX="-6.0" layoutY="59.0" prefHeight="12.0" prefWidth="393.0" />
+                  <Label layoutX="139.0" layoutY="171.0" text="Первым ходит" textFill="#736a6a" />
+                  <Label layoutX="131.0" layoutY="209.0" text="Бот" textFill="#736a6a" />
+                  <Label layoutX="210.0" layoutY="208.0" text="Вы" textFill="#736a6a" />
+                  <CheckBox fx:id="check_bot" layoutX="133.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#check_bot_click" style="-fx-background-radius: 10;" />
+                  <CheckBox fx:id="check_player" layoutX="207.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#check_player_click" style="-fx-background-radius: 10;" />
+                  <Separator layoutX="-34.0" layoutY="111.0" prefHeight="12.0" prefWidth="393.0" style="-fx-background-color: gray;" />
+                  <Separator layoutX="-6.0" layoutY="59.0" prefHeight="12.0" prefWidth="393.0" style="-fx-background-color: gray;" />
                   <Separator layoutX="130.0" layoutY="192.0" prefHeight="14.0" prefWidth="99.0" />
+                  <Button fx:id="btn_play_withFriend" layoutX="117.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#btn_play_withFriend_click" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Играть с другом">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
       </content>
     </Tab>
     <Tab fx:id="tab_game" text="Игровое поле">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="359.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="359.0" style="-fx-background-color: black;">
                <children>
-                  <Button fx:id="field1" layoutX="10.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field1_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field1" layoutX="10.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field1_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field2" layoutX="126.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field2_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field2" layoutX="126.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field2_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field3" layoutX="242.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field3_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field3" layoutX="242.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#field3_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field4" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field4_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field4" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field4_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field5" layoutX="126.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field5_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field5" layoutX="126.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field5_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field6" layoutX="242.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field6_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field6" layoutX="242.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#field6_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field7" layoutX="10.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field7_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field7" layoutX="10.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field7_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field8" layoutX="126.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field8_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field8" layoutX="126.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field8_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="field9" layoutX="242.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field9_click" prefHeight="106.0" prefWidth="106.0">
+                  <Button fx:id="field9" layoutX="242.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#field9_click" prefHeight="106.0" prefWidth="106.0" style="-fx-background-color: gray; -fx-background-radius: 10;" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font></Button>
-                  <Button fx:id="btn_menu" layoutX="74.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#btn_menu_click" prefHeight="30.0" prefWidth="100.0" text="Меню" />
-                  <Button fx:id="btn_reset" layoutX="184.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#btn_reset_click" prefHeight="30.0" prefWidth="100.0" text="Рестарт" />
-                  <Label fx:id="turnLabel" alignment="CENTER" ellipsisString="" layoutX="139.0" layoutY="24.0" prefHeight="18.0" prefWidth="79.0" textAlignment="CENTER" />
+                  <Button fx:id="btn_menu" layoutX="74.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#btn_menu_click" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: orange; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black;" text="Меню" />
+                  <Button fx:id="btn_reset" layoutX="184.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#btn_reset_click" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: orange; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black;" text="Рестарт" />
+                  <Label fx:id="turnLabel" alignment="CENTER" ellipsisString="" layoutX="133.0" layoutY="14.0" prefHeight="27.0" prefWidth="93.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                </children></AnchorPane>
       </content>
     </Tab>

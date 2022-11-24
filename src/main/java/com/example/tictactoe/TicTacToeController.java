@@ -11,72 +11,57 @@ import java.util.ResourceBundle;
 public class TicTacToeController implements Initializable {
     @FXML
     private Button btn_exit;
-
     @FXML
     private Button btn_menu;
-
     @FXML
     private Button btn_play;
-
     @FXML
     private Button btn_reset;
-
-    @FXML
-    private CheckBox check_bot;
-
-    @FXML
-    private CheckBox check_player;
-
     @FXML
     private Button field1;
-
     @FXML
     private Button field2;
-
     @FXML
     private Button field3;
-
     @FXML
     private Button field4;
-
     @FXML
     private Button field5;
-
     @FXML
     private Button field6;
-
     @FXML
     private Button field7;
-
     @FXML
     private Button field8;
-
     @FXML
     private Button field9;
 
     @FXML
-    private Tab tab_game;
+    private CheckBox check_bot;
+    @FXML
+    private CheckBox check_player;
 
     @FXML
+    private Tab tab_game;
+    @FXML
     private Tab tab_menu;
-
     @FXML
     private TabPane tabPane;
 
     @FXML
     private Label turnLabel;
 
-    private boolean botTurnIsFirst = true;
+    private boolean botTurnIsFirst = true; //переменная, отвечающая за то, кто первый ходит
 
-    private int cntOfMoves = 0;
-    private int emptyFieldCount = 9;
+    private int cntOfMoves = 0; //количество ходов
+    private int emptyFieldCount = 9; //количество пустых полей
 
-    private Button fields[];
+    private Button fields[]; //массив полей/кнопок
 
     private String botSymbol = "O";
     private String userSymbol = "X";
 
-    private boolean thereIsAWinner = false;
+    private boolean thereIsAWinner = false; //переменная, отвечающая за то, есть ли победитель
 
     @FXML
     void btn_exit_click(MouseEvent event) {
@@ -195,7 +180,6 @@ public class TicTacToeController implements Initializable {
     }
 
 
-
     private void viewWinner(String winner) {
         if (thereIsAWinner) {
             turnLabel.setText("Winner is " + winner);
@@ -212,12 +196,16 @@ public class TicTacToeController implements Initializable {
                 userStep(fieldNum);
             } else {
                 userStep(fieldNum);
-                chooseBotStep();
+                if (!thereIsAWinner) {
+                    chooseBotStep();
+                }
             }
         } else {
             if (isEven(cntOfMoves)) {
                 userStep(fieldNum);
-                chooseBotStep();
+                if (!thereIsAWinner) {
+                    chooseBotStep();
+                }
             } else {
                 chooseBotStep();
             }
@@ -226,7 +214,7 @@ public class TicTacToeController implements Initializable {
     }
 
     private void userStep(int fNum) {
-        if(emptyFieldCount != 0) {
+        if (emptyFieldCount != 0) {
             fields[fNum].setText(userSymbol);
             fields[fNum].setDisable(true);
             check_win();
@@ -240,8 +228,10 @@ public class TicTacToeController implements Initializable {
     }
 
     private void chooseBotStep() {
-        if(emptyFieldCount != 0) {
-            if (field1.getText().equals(botSymbol) && field4.getText().equals(botSymbol) && field7.getText().equals("")) { //1 столбец
+        if (emptyFieldCount != 0) {
+            if (field5.getText().equals("")) {
+                botStep(4, botSymbol);
+            } else if (field1.getText().equals(botSymbol) && field4.getText().equals(botSymbol) && field7.getText().equals("")) { //1 столбец
                 botStep(6, botSymbol);
             } else if (field1.getText().equals(botSymbol) && field7.getText().equals(botSymbol) && field4.getText().equals("")) {
                 botStep(3, botSymbol);
